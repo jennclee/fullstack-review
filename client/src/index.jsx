@@ -17,14 +17,25 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     // TODO
-
+    $.ajax({
+      method: 'POST',
+      url: '/repos',
+      contentType: 'application/json', 
+      data: { 'searchTerm': term },
+      success: (data) => {
+        console.log('Successfully posted search');
+      },
+      error: (data) => {
+        console.log('Failed to post search');
+      }
+    });
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search}/>
+      <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
 }
