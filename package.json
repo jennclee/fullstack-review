@@ -17,12 +17,14 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
-    "body-parser": "^1.17.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "express": "^4.15.0",
     "jquery": "^3.1.1",
-    "mongoose": "^4.9.6",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "request": "^2.81.0"
+    "request": "^2.83.0"
   }
 }

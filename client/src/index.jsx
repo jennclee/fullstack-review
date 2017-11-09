@@ -11,7 +11,6 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-
   }
 
   search (term) {
@@ -21,7 +20,7 @@ class App extends React.Component {
       method: 'POST',
       url: '/repos',
       contentType: 'application/json', 
-      data: { 'searchTerm': term },
+      data: JSON.stringify({ searchTerm: term }),
       success: (data) => {
         console.log('Successfully posted search');
       },
