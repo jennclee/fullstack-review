@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
+const Promise = require('bluebird');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -8,7 +9,6 @@ db.once('open', function() {
   console.log('Woohoo! Connected to the DB!');
 });
 
-// mongodb://jlee:<PASSWORD>@gh-fsreview-shard-00-00-7hw3c.mongodb.net:27017,gh-fsreview-shard-00-01-7hw3c.mongodb.net:27017,gh-fsreview-shard-00-02-7hw3c.mongodb.net:27017/test?ssl=true&replicaSet=GH-FSReview-shard-0&authSource=admin
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
@@ -39,7 +39,18 @@ let save = (response) => {
 }
 
 let retrieve = () => {
-	Repo.find({})
+	return new Promise ( (resolve, reject) => {
+		resolve(Repo.find().
+		limit(25).
+		sort({ repo_watchers: -1 }).
+		select({username: 1, repo_name: 1, repo_link: 1}).
+		exec( (err, person) => {
+		  if (err) console.log(err);
+		  console.log('Querying database...');
+		}))
+	});
 }
 
+
 module.exports.save = save;
+module.exports.retrieve = retrieve;
