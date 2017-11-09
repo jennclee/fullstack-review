@@ -13,9 +13,22 @@ class App extends React.Component {
     }
   }
 
-  // this.setState((prevState, props) => {
-  //   return {repos: prevState.repos.concat(props.repos)}
-  // })
+  refresh () {
+    $.ajax({
+      method: 'GET',
+      url: '/repos',
+      contentType: 'application/json', 
+      success: (data) => {
+        console.log('Successfully got top 25 repos from database');
+        this.setState({
+          repos: data
+        })
+      },
+      error: (data) => {
+        console.log('Failed to get top 25 repos from database');
+      }
+    });
+  }
 
   search (term) {
     console.log(`${term} was searched`);
@@ -32,6 +45,11 @@ class App extends React.Component {
         console.log('Failed to post search');
       }
     });
+  }
+
+  componentDidMount () {
+    console.log('component mounted');
+    this.refresh()
   }
 
   render () {

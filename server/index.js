@@ -27,7 +27,7 @@ app.post('/repos', (req, res) => {
 	  		console.log(saveRepoInfo);
 	  		db.save(saveRepoInfo);
 	  	});
-  		res.send('200: POST successful');
+  		res.status(201).send('POST successful');
   	}).catch ( (e) => {
   		console.log('error: ', e);
   	})
@@ -37,21 +37,10 @@ app.get('/repos', (req, res) => {
   // TODO - your code here!
   // This route should send back the top 25 repos
   Promise.resolve(db.retrieve()).then( (results) => {
-  	console.log('retrieve top 25 results: ', results);
-    app.post('/', (req, res) => {
-      
-      res.send()
-    })
+  	console.log('Retrieved top 25 results: ', results);
+    console.log('Posting top 25 results...');
+    res.status(200).send(results);
   }).catch( (e) => console.log(e) );
-
-
-
-
-
-  // ************** SEND THE QUERIED INFORMATION BACK TO THE APP TO RENDER THE LIST **************
-
-
-
 
 
 });
