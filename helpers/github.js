@@ -1,5 +1,6 @@
 const request = require('request');
 const config = require('../config.js');
+const Promise = require('bluebird');
 
 let getReposByUsername = (username) => {
   // TODO - Use the request module to request repos for a specific
@@ -7,6 +8,9 @@ let getReposByUsername = (username) => {
 
   // The options object has been provided to help you out, 
   // but you'll have to fill in the URL
+
+  // ************* CREATE CONDITIONAL TO CHECK IF USERNAME IS ALREADY IN THE DATABASE BEFORE QUERYING GITHUB *************
+
   let options = {
     method: 'GET',
     url: `https://api.github.com/users/${username}/repos`,
@@ -20,11 +24,11 @@ let getReposByUsername = (username) => {
     }
   };
 
-  request(options, (err, res) => {
-    // console.log('GitHub GET request response body: ', res.body);
-    return res.body;
+  return new Promise( (resolve, reject) => {
+    request(options, (err, res) => {
+      resolve(res.body);
+    });
   });
-
 }
 
 module.exports.getReposByUsername = getReposByUsername;
