@@ -13,7 +13,10 @@ db.once('open', function() {
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
   username: String,
-  repo_id: Number,
+  repo_id: {
+  	type: Number,
+  	unique: true
+  },
   repo_name: String,
   repo_link: String,
   repo_watchers: Number
@@ -33,20 +36,23 @@ let save = (response) => {
 	repo_watchers: response.repo_watchers
   });
   newRepo.save( (err, newRepo) => {
-  	if (err) console.log(err);
-  	console.log('newRepo has been saved: ', newRepo);
+  	if (err) {
+  		console.log('err: ', err);
+  	} else {
+  		console.log('newRepo has been saved: ', newRepo);
+  	}
   });
 }
 
 let retrieve = () => {
+	console.log('Querying database...');
 	return new Promise ( (resolve, reject) => {
 		resolve(Repo.find().
 		limit(25).
 		sort({ repo_watchers: -1 }).
-		select({username: 1, repo_name: 1, repo_link: 1}).
+		select({username: 1, repo_name: 1, repo_link: 1, repo_watchers: 1}).
 		exec( (err, person) => {
 		  if (err) console.log(err);
-		  console.log('Querying database...');
 		}))
 	});
 }

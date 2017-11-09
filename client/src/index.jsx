@@ -13,6 +13,10 @@ class App extends React.Component {
     }
   }
 
+  // this.setState((prevState, props) => {
+  //   return {repos: prevState.repos.concat(props.repos)}
+  // })
+
   search (term) {
     console.log(`${term} was searched`);
     // TODO
