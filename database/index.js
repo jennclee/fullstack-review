@@ -19,7 +19,8 @@ let repoSchema = mongoose.Schema({
   },
   repo_name: String,
   repo_link: String,
-  repo_watchers: Number
+  repo_watchers: Number,
+  repo_stargazers: Number
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -33,7 +34,8 @@ let save = (response) => {
 	repo_id: response.repo_id,
 	repo_name: response.repo_name,
 	repo_link: response.repo_link,
-	repo_watchers: response.repo_watchers
+	repo_watchers: response.repo_watchers,
+	repo_stargazers: response.repo_stargazers
   });
   newRepo.save( (err, newRepo) => {
   	if (err) {
@@ -49,8 +51,8 @@ let retrieve = () => {
 	return new Promise ( (resolve, reject) => {
 		resolve(Repo.find().
 		limit(25).
-		sort({ repo_watchers: -1 }).
-		select({username: 1, repo_name: 1, repo_link: 1, repo_watchers: 1}).
+		sort({ repo_stargazers: -1 }).
+		select({username: 1, repo_name: 1, repo_link: 1, repo_watchers: 1, repo_stargazers: 1}).
 		exec( (err, person) => {
 		  if (err) console.log(err);
 		}))

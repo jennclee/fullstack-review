@@ -9,6 +9,7 @@ const RepoList = (props) => (
 	    	<tr>
 	    		<th>Username</th>
 	    		<th>Repo</th>
+	    		<th>Stargazers</th>
 	    	</tr>
     	</thead>
     	<tbody>

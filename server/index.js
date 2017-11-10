@@ -24,6 +24,7 @@ app.post('/repos', (req, res) => {
 	  		saveRepoInfo['repo_name'] = repo.name;
 	  		saveRepoInfo['repo_link'] = repo.html_url;
 	  		saveRepoInfo['repo_watchers'] = repo.watchers_count;
+        saveRepoInfo['repo_stargazers'] = repo.stargazers_count;
 	  		console.log(saveRepoInfo);
 	  		db.save(saveRepoInfo);
 	  	});

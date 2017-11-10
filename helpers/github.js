@@ -22,6 +22,7 @@ let getReposByUsername = (username) => {
 
   return new Promise( (resolve, reject) => {
     request(options, (err, res) => {
+      console.log('Github GET response: ', res.body);
       resolve(res.body);
     });
   });
