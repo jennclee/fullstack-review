@@ -17,7 +17,6 @@ const RepoList = (props) => (
     	</tbody>
     </table>
     <br/>
-    <p>There are {props.repos.length} repos in the database.</p>
   </div>
 )
 

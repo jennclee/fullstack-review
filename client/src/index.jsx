@@ -40,6 +40,7 @@ class App extends React.Component {
       data: JSON.stringify({ searchTerm: term }),
       success: (data) => {
         console.log('Successfully posted search');
+        this.refresh()
       },
       error: (data) => {
         console.log('Failed to post search');
